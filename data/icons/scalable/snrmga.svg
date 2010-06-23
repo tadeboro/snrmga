@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="48"
+   height="48"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <g
+     transform="translate(0,-1004.3622)"
+     id="layer1">
+    <g
+       transform="matrix(0.36684783,0,0,0.37190083,0.52173888,660.69651)"
+       id="g3630">
+      <path
+         d="m 64,4.25 c -33.137086,0 -60,26.862914 -60,60 0,33.137086 26.862914,60 60,60 33.137086,0 60,-26.862914 60,-60 0,-33.137086 -26.862914,-60 -60,-60 z M 64,25 c 18.400456,0 33.814166,12.664036 38.0625,29.75 l -76.125,0 C 30.185834,37.664036 45.599544,25 64,25 z m -37.875,49.5 75.75,0 c -4.509526,16.703222 -19.746213,29 -37.875,29 -18.128787,0 -33.365474,-12.296778 -37.875,-29 z"
+         transform="translate(0,924.36218)"
+         id="path2816"
+         style="fill:#fcaf3e;stroke:#000000;stroke-width:2.70734453;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <path
+         d="m 117,63.5 a 55.25,55.25 0 1 1 -110.5,0 55.25,55.25 0 1 1 110.5,0 z"
+         transform="matrix(-0.40652723,0.67427876,-0.67427876,-0.40652723,131.91976,972.78992)"
+         id="path3590"
+         style="fill:none;stroke:none" />
+      <text
+         id="text3592"
+         xml:space="preserve"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Bold"><textPath
+           xlink:href="#path3590"
+           id="textPath3596"><tspan
+   id="tspan3594"
+   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Bold">Keep It Simple and Short</tspan></textPath></text>
+      <text
+         x="28.151873"
+         y="996.1795"
+         id="text3604"
+         xml:space="preserve"
+         style="font-size:19.55774307px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#a40000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Bold"><tspan
+           x="28.151873"
+           y="996.1795"
+           id="tspan3606">SNRMGA</tspan></text>
+    </g>
+  </g>
+</svg>

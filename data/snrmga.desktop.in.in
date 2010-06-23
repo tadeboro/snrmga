@@ -1,0 +1,9 @@
+[Desktop Entry]
+_Name=Snrmga
+_Comment=Sample Non-Recursive Make GTK+ Application
+Exec=snrmga
+Terminal=false
+Type=Application
+Icon=snrmga
+Categories=GTK
+StartupNotify=false
