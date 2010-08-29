@@ -1,0 +1,206 @@
+Introduction
+============
+
+Purpose of this README file is to describe how to create simple
+autotools-enabled application in step-by-step manner. Note that build system of
+this package is a bit different than in most other autotools based packages,
+since it uses non-recursive make. Ask your favourite search provider what
+non-recursive make is and why you should use it.
+
+Main goals of this package are:
+ - show how to "bootstrap" new project from thin air
+ - demonstrate use of non-recursive make
+ - show how to set up translations (vital in free software)
+ - show how most commonly used pieces (glade files, custom icons) fit together
+   to form complete GTK+ application
+
+General guide is presented in this README file, for detailed description see
+sources itself (they are heavily documented).
+
+Lines starting with '$< ' in this document indicate that you should type this
+into terminal. Lines starting with '$> ' indicate return value from previously
+entered command.
+
+
+Creating initial directory structure
+====================================
+
+We'll start by creating simple directory structure that will house our files.
+
+$< mkdir snrmga
+$< cd snrmga
+$< mkdir data po src
+$< cd data
+$< mkdir icons pixmaps ui
+$< cd icons
+$< mkdir 22x22 24x24 32x32 48x48 scalable
+$< cd ../..
+
+After you execute all of te above commands, you should end up with directory
+structure like this one (I created this one using tree command):
+
+.
+├── data
+│   ├── icons
+│   │   ├── 22x22
+│   │   ├── 24x24
+│   │   ├── 32x32
+│   │   ├── 48x48
+│   │   └── scalable
+│   ├── pixmaps
+│   └── ui
+├── po
+└── src
+
+Src folder will hold our program sources, data folder will hold non-source files
+that are needed by application (icons, pixmaps, desktop file ...) and po folder
+will hold translations.
+
+Toplevel source directory will hold Makefile.am file, configure.ac file and
+autogen.sh script. All other files in toplevel directory will be created by
+autotools or our autogen script.
+
+Creating files
+==============
+
+Next thing we need to do is create some files to work with. I won't describe
+which files you need to create here, since you can easily inspect contents of my
+demo package. But just for the record (if you have already generated any files),
+this is how directory structure should look like after files are created:
+
+.
+├── autogen.sh
+├── configure.ac
+├── data
+│   ├── icons
+│   │   ├── 16x16
+│   │   │   └── snrmga.png
+│   │   ├── 22x22
+│   │   │   └── snrmga.png
+│   │   ├── 24x24
+│   │   │   └── snrmga.png
+│   │   ├── 32x32
+│   │   │   └── snrmga.png
+│   │   ├── 48x48
+│   │   │   └── snrmga.png
+│   │   └── scalable
+│   │       └── snrmga.svg
+│   ├── pixmaps
+│   │   ├── image_a.png
+│   │   └── image_b.png
+│   ├── snrmga.desktop.in.in
+│   └── ui
+│       └── snrmga.glade
+├── Makefile.am
+├── po
+└── src
+    └── snrmga.c
+
+
+Prepare translation machinery
+=============================
+
+To set thing up, move to po folder, create POTFILES.in, POTFILES.skip and
+LINGUAS files and ask intltool to do initial package inspection. We'll use
+results of this inspection as starting point.
+
+$< cd po
+$< touch POTFILES.in POTFILES.skip LINGUAS
+$< intltool-update -m
+
+$> The following files contain translations and are currently not in use. Please
+$> consider adding these to the POTFILES.in file, located in the po/ directory.
+$>
+$> data/snrmga.desktop.in.in
+$> data/ui/snrmga.glade
+$>
+$> If some of these files are left out on purpose then please add them to
+$> POTFILES.skip instead of POTFILES.in. A file 'missing' containing this list
+$> of left out files has been written in the current directory.
+$> Please report to tadeboro@gmail.com
+
+$< mv missing POTFILES.in
+
+Now we have our final layout finished. Tree looks like this:
+
+.
+├── autogen.sh
+├── configure.ac
+├── data
+│   ├── icons
+│   │   ├── 16x16
+│   │   │   └── snrmga.png
+│   │   ├── 22x22
+│   │   │   └── snrmga.png
+│   │   ├── 24x24
+│   │   │   └── snrmga.png
+│   │   ├── 32x32
+│   │   │   └── snrmga.png
+│   │   ├── 48x48
+│   │   │   └── snrmga.png
+│   │   └── scalable
+│   │       └── snrmga.svg
+│   ├── pixmaps
+│   │   ├── image_a.png
+│   │   └── image_b.png
+│   ├── snrmga.desktop.in.in
+│   └── ui
+│       └── snrmga.glade
+├── Makefile.am
+├── po
+│   ├── LINGUAS
+│   ├── POTFILES.in
+│   └── POTFILES.skip
+└── src
+    └── snrmga.c
+
+
+Finishing touches
+=================
+
+Last thing we need to do is add some files that are mandated by autotools. These
+files are AUTHORS, README, NEWS and ChangeLog. You can simply touch them to make
+build system happy, but you should at least fill AUTHORS file with your name. It
+is considered good idea to properly fill ChangeLog too, but if you're using
+source control and set proper commit messages, you can skip this.
+
+All files that we created this far should go unders source control. All files
+that will be generated later do not belong to source control.
+
+
+Compiling/installing package
+============================
+
+All that is left to do now is test our shiny new package. All we need to do is
+execute this sequence of commands:
+
+$< ./autogen
+$< make
+$< su -c make install
+
+This procedure will install package under /usr/local. Now you can test it by
+running snrmga binary from /usr/local/bin folder.
+
+
+Adding translations
+===================
+
+To add new translation, do this:
+
+$< ./autogen.sh
+$< cd po
+$< make update-po
+
+This will create snrmga.pot template. New translation is then realized using
+msginit application like this (replace sl with your locale):
+
+$< msginit -l sl
+
+This will produce sl.po file, which should be translated by translator.
+
+Last thing we need to do is add our new locale to LINGUAS file:
+
+$< echo "sl" >> LINGUAS
+
+Next tim we run "make update-po", our new locale file will be automatically
+updated.

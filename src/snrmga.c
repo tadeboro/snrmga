@@ -16,31 +16,95 @@
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+/* This is autotools-generated file that will hold macros like
+ * GETTEXT_PACKAGE etc. */
 #include <config.h>
 
+/* Include here is needed for internationalization macros _(), N_() ... */
 #include <glib/gi18n.h>
+/* Include GTK+ header */
 #include <gtk/gtk.h>
 
+/* Define structure that will hold data, shared among all callback functions */
+typedef struct _Data Data;
+struct _Data
+{
+  GtkWidget *main_window,
+	    *image;
+};
+
+
+/* Simple callback functions */
+G_MODULE_EXPORT void
+cb_clicked_unset_image (GtkButton *button,
+			Data      *data)
+{
+  gtk_image_set_from_pixbuf (GTK_IMAGE (data->image), NULL);
+}
+
+G_MODULE_EXPORT void
+cb_clicked_set_image_a (GtkButton *button,
+			Data      *data)
+{
+  char *path = g_build_filename (PKGPIXMAPSDIR, "image_a.png", NULL);
+
+  gtk_image_set_from_file (GTK_IMAGE (data->image), path);
+  g_free (path);
+}
+
+G_MODULE_EXPORT void
+cb_clicked_set_image_b (GtkButton *button,
+			Data      *data)
+{
+  char *path = g_build_filename (PKGPIXMAPSDIR, "image_b.png", NULL);
+
+  gtk_image_set_from_file (GTK_IMAGE (data->image), path);
+  g_free (path);
+}
+
+
+/* Main function */
 int
 main (int    argc,
       char **argv)
 {
-  GtkWidget *window,
-	    *label;
+  Data       *data;
+  char       *path;
+  GtkBuilder *builder;
+  GError     *error = NULL;
 
+  /* Initialize translation machinery */
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
+  /* Initialize GTK+ */
   gtk_init (&argc, &argv);
 
-  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  g_signal_connect (window, "destroy", gtk_main_quit, NULL);
+  /* Allocate shared data memory */
+  data = g_slice_new0 (Data);
 
-  label = gtk_label_new (_("Hello world"));
-  gtk_container_add (GTK_CONTAINER (window), label);
+  /* Create UI */
+  builder = gtk_builder_new ();
+  path = g_build_filename (PKGUIDIR, "snrmga.glade", NULL);
+  if (!gtk_builder_add_from_file (builder, path, &error))
+    {
+      g_critical ("%s", error->message);
 
-  gtk_widget_show_all (window);
+      return 1;
+    }
+  g_free (path);
+
+#define GW(name) \
+  (data->name = GTK_WIDGET (gtk_builder_get_object (builder, (#name))))
+  GW (main_window);
+  GW (image);
+#undef GW
+
+  gtk_builder_connect_signals (builder, data);
+  g_object_unref (builder);
+
+  gtk_widget_show (data->main_window);
 
   gtk_main();
 

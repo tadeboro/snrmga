@@ -1,2 +1,3 @@
 data/snrmga.desktop.in.in
+data/ui/snrmga.glade
 src/snrmga.c

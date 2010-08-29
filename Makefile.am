@@ -9,20 +9,53 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 AUTOMAKE_OPTIONS = subdir-objects
+  # This option instructs automake to generate rules that will keep object files
+  # in the same subdirectory as source files. Without this, all object files
+  # would end up clobbering toplevel directory.
+
 ACLOCAL_AMFLAGS = -I macros ${ACLOCAL_FLAGS}
+  # This line informs automake where to find additional macro definitions.
 
 SUBDIRS = po
+  # One would expect that non-recursive make would have no SUBDIRS, but since
+  # contents of po folder is almost completelly controlled by intltool that
+  # comes with it's own makefiles, we need to have this here.
 
 # Defines
 snrmga_defines = -DDATADIR=\""$(datadir)"\" \
 		 -DLOCALEDIR=\""$(localedir)"\" \
-		 -DPKGDATADIR=\""$(pkgdatadir)"\"
+		 -DPKGPIXMAPSDIR=\""$(pkgdatadir)/pixmaps"\" \
+		 -DPKGUIDIR=\""$(pkgdatadir)/ui"\"
+  # These defines are placed here because it's imposible to place them inside
+  # config.h completelly expanded. If we were to use AC_DEFINE to define
+  # PKGUIDIR for example, header would look like this:
+  #
+  # #define PKGUIDIR "$(pkgdatadir)/ui"
+  #
+  # Not exactly what we want;)
 
 # Application
 bin_PROGRAMS = src/snrmga
 src_snrmga_SOURCES = src/snrmga.c
 src_snrmga_CPPFLAGS = $(snrmga_defines) $(SNRMGA_CFLAGS)
 src_snrmga_LDADD = $(SNRMGA_LIBS)
+  # This part specifies program components of our package. SNRMGA_CFLAGS and
+  # SNRMGA_LIBS variables are defined by PKG_CHECK_MODULES inside configure.ac.
+  #
+  # Binaries will be installed inside $(prefix)/bin.
+
+# Pixmaps
+pixmapsdir = $(pkgdatadir)/pixmaps
+dist_pixmaps_DATA = data/pixmaps/image_a.png \
+		    data/pixmaps/image_b.png
+  # This part is similar to previous section, but files will be installed in
+  # custom directory under package data directory (in this case subfolder
+  # pixmaps).
+
+# Glade file
+uidir = $(pkgdatadir)/ui
+dist_ui_DATA = data/ui/snrmga.glade
+  # Same thing as above.
 
 # Icon
 themedir = $(datadir)/icons/hicolor

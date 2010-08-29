@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Snrmga 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-23 22:52+0200\n"
+"POT-Creation-Date: 2010-08-29 22:38+0200\n"
 "PO-Revision-Date: 2010-06-23 22:52+0200\n"
 "Last-Translator:  <tadeboro@gmail.com>\n"
 "Language-Team: Slovenian\n"
@@ -26,6 +26,14 @@ msgstr ""
 msgid "Snrmga"
 msgstr ""
 
-#: ../src/snrmga.c:40
-msgid "Hello world"
+#: ../data/ui/snrmga.glade.h:1
+msgid "Set image A"
+msgstr ""
+
+#: ../data/ui/snrmga.glade.h:2
+msgid "Set image B"
+msgstr ""
+
+#: ../data/ui/snrmga.glade.h:3
+msgid "Unset image"
 msgstr ""
