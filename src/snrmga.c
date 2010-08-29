@@ -39,6 +39,10 @@ G_MODULE_EXPORT void
 cb_clicked_unset_image (GtkButton *button,
 			Data      *data)
 {
+#ifdef ENABLE_DEBUG
+  g_print ("Inside 'cb_clicked_unset_image\n");
+#endif
+
   gtk_image_set_from_pixbuf (GTK_IMAGE (data->image), NULL);
 }
 
@@ -47,6 +51,10 @@ cb_clicked_set_image_a (GtkButton *button,
 			Data      *data)
 {
   char *path = g_build_filename (PKGPIXMAPSDIR, "image_a.png", NULL);
+
+#ifdef ENABLE_DEBUG
+  g_print ("Inside 'cb_clicked_set_image_a\n");
+#endif
 
   gtk_image_set_from_file (GTK_IMAGE (data->image), path);
   g_free (path);
@@ -57,6 +65,10 @@ cb_clicked_set_image_b (GtkButton *button,
 			Data      *data)
 {
   char *path = g_build_filename (PKGPIXMAPSDIR, "image_b.png", NULL);
+
+#ifdef ENABLE_DEBUG
+  g_print ("Inside 'cb_clicked_set_image_b\n");
+#endif
 
   gtk_image_set_from_file (GTK_IMAGE (data->image), path);
   g_free (path);
@@ -80,6 +92,10 @@ main (int    argc,
 
   /* Initialize GTK+ */
   gtk_init (&argc, &argv);
+
+#ifdef ENABLE_DEBUG
+  g_print ("Running application in debug mode\n");
+#endif
 
   /* Allocate shared data memory */
   data = g_slice_new0 (Data);

@@ -8,7 +8,7 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-AC_INIT([Snrmga], [0.0.1], [tadeboro@gmail.com], [snrmga])
+AC_INIT([Snrmga], [0.0.2], [tadeboro@gmail.com], [snrmga])
   # This line initializes autoconf and tells it that our package is named
   # "Snrmga", current version is "0.0.1", bugs can be reported to
   # "tadeboro@gmail.com" and that tarball should be named snrmga.tar.gz
@@ -53,6 +53,15 @@ AC_DEFINE([GETTEXT_PACKAGE], [PACKAGE_TARNAME], [Define to the package name.])
   # These lines enable support for multiple languages in application. They
   # initialize intltool and gettext (used to extract translatable strings) and
   # set some macros that we need in sources to init translations.
+
+AC_ARG_ENABLE([debug],
+	      [AS_HELP_STRING([--enable-debug],
+			      [Build with debugging support])])
+AM_CONDITIONAL([ENABLE_DEBUG], [test "x$enable_debug" = "xyes"])
+AS_IF([test "x$enable_debug" = "xyes"],
+      [AC_DEFINE([ENABLE_DEBUG], [1],
+		 [Define to enable debugging])])
+  # This code snippet adds configure switch that turns on debug support.
 
 SNRMGA_MODS="gtk+-2.0 >= 2.14 gmodule-2.0"
 PKG_CHECK_MODULES([SNRMGA], [$SNRMGA_MODS])

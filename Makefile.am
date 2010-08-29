@@ -34,10 +34,16 @@ snrmga_defines = -DDATADIR=\""$(datadir)"\" \
   #
   # Not exactly what we want;)
 
+if ENABLE_DEBUG
+  debug_flags = -g
+else
+  debug_flags =
+endif
+
 # Application
 bin_PROGRAMS = src/snrmga
 src_snrmga_SOURCES = src/snrmga.c
-src_snrmga_CPPFLAGS = $(snrmga_defines) $(SNRMGA_CFLAGS)
+src_snrmga_CPPFLAGS = $(debug_flags) $(snrmga_defines) $(SNRMGA_CFLAGS)
 src_snrmga_LDADD = $(SNRMGA_LIBS)
   # This part specifies program components of our package. SNRMGA_CFLAGS and
   # SNRMGA_LIBS variables are defined by PKG_CHECK_MODULES inside configure.ac.
