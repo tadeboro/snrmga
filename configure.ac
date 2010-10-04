@@ -8,12 +8,13 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-AC_INIT([Snrmga], [0.0.2], [tadeboro@gmail.com], [snrmga])
+AC_INIT([Snrmga], [0.0.2], [tadeboro@gmail.com], [snrmga], [http://www.snrmga.org])
   # This line initializes autoconf and tells it that our package is named
   # "Snrmga", current version is "0.0.1", bugs can be reported to
   # "tadeboro@gmail.com" and that tarball should be named snrmga.tar.gz
+  # "http://www.snrmga.org is the homepage of the project"
 
-AC_PREREQ(2.63)
+AC_PREREQ([2.64])
   # This line simply sets required version of autoconf.
 
 AC_CONFIG_SRCDIR([src/snrmga.c])
@@ -31,12 +32,11 @@ AC_CONFIG_HEADERS([config.h])
   # This line instructs build system to create config.h header file instead of
   # passing all macros on command line.
 
-AM_INIT_AUTOMAKE([1.10])
-  # Initialize automake (we require 1.10 version here).
+AM_INIT_AUTOMAKE([1.11])
+  # Initialize automake (we require 1.11 version here).
 
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-  # This line turns on silent rules if they are supported (this needs
-  # automake-1.11).
+AM_SILENT_RULES([yes])
+  # This line turns on silent rules.
 
 AC_PROG_CC
   # This line searches for C compiler and sets CC variable.
@@ -46,9 +46,11 @@ AM_PROG_CC_C_O
   # will be explained in greater detail later when we come to Makefile.am).
 
 IT_PROG_INTLTOOL([0.40])
+
+AM_GNU_GETTEXT_VERSION([0.17])
+AM_GNU_GETTEXT([external])
+
 AC_SUBST([GETTEXT_PACKAGE], [snrmga])
-AM_GNU_GETTEXT_VERSION([0.11])
-AM_GLIB_GNU_GETTEXT
 AC_DEFINE([GETTEXT_PACKAGE], [PACKAGE_TARNAME], [Define to the package name.])
   # These lines enable support for multiple languages in application. They
   # initialize intltool and gettext (used to extract translatable strings) and
